@@ -9,7 +9,5 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(9000, () => {
-    console.log(`Waepons Server started on port`);
-});
+app.listen(process.env.PORT || 9000, () => console.log("Listen on port 9000 --["+process.env.PORT+"]"));
 
