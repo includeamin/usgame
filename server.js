@@ -6,7 +6,7 @@ var app = express()
 
 app.get('/', (req, res) => {
 
-    
+    res.send("this is usgame server");
 });
 
 
