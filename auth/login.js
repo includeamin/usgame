@@ -16,7 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 class customresponse{
     constructor(OK){
-        this.response=OK;
+        if(OK =="OK")
+        this.ResultCode=1;
+        else{
+            this.ResultCode = 0;
+        }
+        this.Message=OK;
     }
 
 }
