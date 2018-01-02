@@ -25,24 +25,34 @@ module.exports = function (app) {
 
         var hashobj = hash([username,password]);
 
-        connection.query("select username from users where username ="+username,function(err,rows,fields){
-            if(!isEmptyObject(rows))
-            {
+        connection.query("select * from users where username ='"+username+"'",function(err,rows,fields){
+            console.log(rows)
+
+            if(isEmptyObject(rows))
+            {   
                 res.send("USER NOT FOUND");
             }
             else{
-                connection.query("select password from users where username ="+username+" and password ="+hashobj,function(err,rows,fields){
-                    if(!isEmptyObject(rows))
-                    {
-                        res.send("password is wrong ");
-                    }
-                    else
-                    {
-                     res.send("OK");
-                    }
-        
-                });
+                if(rows[0].password == password){
+                    res.send("OK");
+                }
+                else{
+                    res.send("password is wrong");
+                }
             }
+            // else{
+            //     connection.query("select password from users where username ='"+username+"' and password ='"+hashobj+"'",function(err,rows,fields){
+            //         if(isEmptyObject(rows))
+            //         {
+            //             res.send("password is wrong ");
+            //         }
+            //         else
+            //         {
+            //          res.send("OK");
+            //         }
+        
+            //     });
+            // }
 
         });
       
