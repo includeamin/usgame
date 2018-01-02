@@ -14,7 +14,12 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+class customresponse{
+    constructor(OK){
+        this.response=OK;
+    }
 
+}
 module.exports = function (app) {
    
     app.get('/users', (req, res) => {
@@ -27,17 +32,25 @@ module.exports = function (app) {
 
         connection.query("select * from users where username ='"+username+"'",function(err,rows,fields){
             console.log(rows)
+            if(err){
+                console.log(err);
+            }
 
             if(isEmptyObject(rows))
-            {   
-                res.send("USER NOT FOUND");
+            {  
+                 var result = new customresponse("USER NOT FOUND");
+
+                res.send(result);
             }
             else{
-                if(rows[0].password == password){
-                    res.send("OK");
+                if(rows[0].password == hashobj){
+                    var result = new customresponse("OK");
+                    res.send(result);
                 }
                 else{
-                    res.send("password is wrong");
+                    var result = new customresponse("password is wrong");
+
+                    res.send(result);
                 }
             }
             // else{
