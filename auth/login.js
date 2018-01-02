@@ -19,7 +19,7 @@ class customresponse{
         if(OK =="OK")
         this.ResultCode=1;
         else{
-            this.ResultCode = 0;
+            this.ResultCode = 2;
         }
         this.Message=OK;
     }
