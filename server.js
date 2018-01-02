@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 
 app.get('/', (req, res) => {
     var hashobj = hash(["includeamin","9518867"]);
-    res.send(hashobj);
+    res.send("US GAME");
     // connection.query("select * from users where username='includeamin'",function(err,rows,fields){
     //     if(err) throw err;
     //     //console.log(rows);
