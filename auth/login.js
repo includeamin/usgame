@@ -30,8 +30,8 @@ module.exports = function (app) {
     app.get('/users', (req, res) => {
         var username = req.query.username;
         var password = req.query.password;
-        // var gamevresion = req.query.gamevresion;
-        // var clientvresion = req.query.clientvresion;
+        var gamevresion = req.query.gamevresion;
+        var clientvresion = req.query.clientvresion;
 
         var hashobj = hash([username,password]);
 
