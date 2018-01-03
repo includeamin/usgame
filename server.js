@@ -12,6 +12,7 @@ var connection = mysql.createConnection({
     password: load.dbConfig().password,
     database: load.dbConfig().database
 });
+//test comment
 
 app.get('/', (req, res) => {
     var hashobj = hash(["includeamin","9518867"]);

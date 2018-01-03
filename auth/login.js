@@ -32,7 +32,7 @@ module.exports = function (app) {
         var username = req.query.username;
         var password = req.query.password;
         var gamevresion = req.query.gamevresion;
-        var clientvresion = req.query.clientvresion;
+      //  var clientvresion = req.query.clientvresion;
 
         var hashobj = hash([username,password]);
 
@@ -59,19 +59,7 @@ module.exports = function (app) {
                     res.send(result);
                 }
             }
-            // else{
-            //     connection.query("select password from users where username ='"+username+"' and password ='"+hashobj+"'",function(err,rows,fields){
-            //         if(isEmptyObject(rows))
-            //         {
-            //             res.send("password is wrong ");
-            //         }
-            //         else
-            //         {
-            //          res.send("OK");
-            //         }
-        
-            //     });
-            // }
+            
 
         });
       
