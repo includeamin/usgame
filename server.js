@@ -4,6 +4,7 @@ var express = require('express');
 var hash = require('object-hash');
 var app = express()
 var login = require("./auth/login")(app);
+var register = require("./auth/signup")(app);
 var mysql = require('mysql');
 var load = require('./config.js');
 var connection = mysql.createConnection({

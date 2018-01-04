@@ -18,9 +18,9 @@
   "author": "amin jamal",
   "license": "ISC",
   "Database": {
-    "host": "shavermarket.ir",
-    "user": "shaverma",
-    "password": "SOqz21g15d",
-    "database": "shaverma_usgame"
+    "host": "178.63.169.234",
+    "user": "root",
+    "password": "aminjamal72",
+    "database": "us"
   }
 }
