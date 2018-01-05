@@ -66,12 +66,12 @@ module.exports = function(app){
             var mail = req.body.mail;
             var password = req.body.password;
             var age = req.body.age;
-            console.log(username);
+            
     
             var temp_user = new UserSignUp(username,mail,password,age);
             var output= temp_user.insertToDb();
             var result = new customresponse(output);
-            console.log("new user is registred");
+            console.log("new user : "+username);
            
             res.send(result);
            
