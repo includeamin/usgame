@@ -18,9 +18,9 @@
   "author": "amin jamal",
   "license": "ISC",
   "Database": {
-    "host": "178.63.169.234",
+    "host": "localhost",
     "user": "root",
-    "password": "aminjamal72",
+    "password": "9518867",
     "database": "us"
   }
 }

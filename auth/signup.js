@@ -33,10 +33,6 @@ class UserSignUp{
        
         try {
           //check if exist username
-
-
-
-
             connection.query("insert into users (username,mail,password,age) values ('"+this.username+"','"+this.mail
             +"','"+this.password+"','"+this.age+"');",function(err){
                 console.log(err);
@@ -50,7 +46,40 @@ class UserSignUp{
             
         }
         
+        connection.release()
+
+    }
+
+    checkusername(){
+        try {
+            connection.query("select username from users where username="+this.username+" ",function(err,rows,fieldss){
+               
+               if(err) {
+                   throw err;
+                   console.log(err)
+               }
+               else{
+                 if(rows.length > 0){
+                     var ret = customresponse("username already exist");
+                     return ret;
+                 }
+                 else{
+                     return "OK";
+                 }
+
+               }
+               connection.release()
+               // console.log(err);
+               // return "FAILD :"+err;
+            });
         
+
+            return "OK"
+            
+        } catch (error) {
+            console.log(error);
+            return "FAILD :"+error;
+        }
     }
 }
 
@@ -62,16 +91,17 @@ module.exports = function(app){
 
     app.post('/users/register', (req, res) => {
         try {
+
             var username = req.body.username;
             var mail = req.body.mail;
             var password = req.body.password;
             var age = req.body.age;
-            console.log(username);
-    
+
+            
             var temp_user = new UserSignUp(username,mail,password,age);
             var output= temp_user.insertToDb();
             var result = new customresponse(output);
-            console.log("new user is registred");
+            console.log("new user is registred =["+username+"] ");
            
             res.send(result);
            
