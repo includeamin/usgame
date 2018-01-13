@@ -17,6 +17,8 @@ class customresponse{
         this.ResultCode=1;
         else{
             this.ResultCode = 2;
+            this.Message=OK;
+
         }
         this.Message=OK;
     }
@@ -24,35 +26,16 @@ class customresponse{
 }
 class UserSignUp{
     constructor(username,mail,password,age){
+
         this.username=username;
         this.mail =mail;
         this.password=hash([username,password]);
         this.age=age;
     }
-    insertToDb(){
-       
-        try {
-          //check if exist username
-            connection.query("insert into users (username,mail,password,age) values ('"+this.username+"','"+this.mail
-            +"','"+this.password+"','"+this.age+"');",function(err){
-                console.log(err);
-                return "FAILD :"+err;
-            });
-            return "OK"
-            
-        } catch (error) {
-            console.log(error);
-            return "FAILD :"+error;
-            
-        }
-        
-        connection.release()
-
-    }
 
     checkusername(){
         try {
-            connection.query("select username from users where username="+this.username+" ",function(err,rows,fieldss){
+            connection.query("select username from users where username='"+this.username+"' ",function(err,rows,fieldss){
                
                if(err) {
                    throw err;
@@ -60,11 +43,13 @@ class UserSignUp{
                }
                else{
                  if(rows.length > 0){
-                     var ret = customresponse("username already exist");
+                     var ret =new customresponse("username already exist");
                      return ret;
                  }
                  else{
-                     return "OK";
+                    var ret =new customresponse("OK");
+                    return ret;
+                    
                  }
 
                }
@@ -81,6 +66,40 @@ class UserSignUp{
             return "FAILD :"+error;
         }
     }
+
+    insertToDb(){
+       
+        try {
+            var resultcode_temp =this.checkusername().ResultCode;
+          //check if exist username
+     if(resultcode_temp=="OK"){
+
+        connection.query("insert into users (username,mail,password,age) values ('"+this.username+"','"+this.mail
+        +"','"+this.password+"','"+this.age+"');",function(err){
+            console.log(err);
+            return "FAILD :"+err;
+        });
+        return "OK"
+
+
+     }
+     else{
+         return "user already exist";
+
+     }
+    
+            
+        } catch (error) {
+            console.log(error);
+            return "FAILD :"+error;
+            
+        }
+        
+        connection.release()
+
+    }
+
+    
 }
 
 module.exports = function(app){
@@ -96,6 +115,10 @@ module.exports = function(app){
             var mail = req.body.mail;
             var password = req.body.password;
             var age = req.body.age;
+
+
+
+            
             
     
             var temp_user = new UserSignUp(username,mail,password,age);
