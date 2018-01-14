@@ -99,11 +99,11 @@ module.exports = function(app){
 
                       }
                     });
-                    console.log(" New User Registration : UserName : %s , Mail : %s  " ,username,mail);
+                    console.log("New User Registration : UserName : %s , Mail : %s  " ,username,mail);
                     res.send(new customresponse(result));
                 }
                 else{
-                    console.log("  New User Registration faild  :"+ result);
+                    console.log("New User Registration faild  :"+ result);
                     res.send(new customresponse(result));
                 }
                 
