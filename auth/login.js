@@ -29,6 +29,7 @@ class customresponse{
 module.exports = function (app) {
    
     app.get('/users', (req, res) => {
+        console.log("[%s] ----------------------------------",new Date().toISOString())
         var username = req.query.username;
         var password = req.query.password;
         var gamevresion = req.query.gamevresion;
@@ -37,23 +38,26 @@ module.exports = function (app) {
         var hashobj = hash([username,password]);
 
         connection.query("select * from users where username ='"+username+"'",function(err,rows,fields){
-            console.log(rows)
+          //  console.log(rows) 
+            console.log("user [%s] loggin in.",username)
             if(err){
                 console.log(err);
             }
 
             if(isEmptyObject(rows))
-            {  
+            {    console.log("user [%s] login faild : Username not found.",username)
                  var result = new customresponse("USER NOT FOUND");
 
                 res.send(result);
             }
             else{
                 if(rows[0].password == hashobj){
+                    console.log("user [%s] login Successful.",username)
                     var result = new customresponse("OK");
                     res.send(result);
                 }
                 else{
+                    console.log("user [%s] login faild :password is wrong.",username)
                     var result = new customresponse("password is wrong");
 
                     res.send(result);
@@ -62,9 +66,9 @@ module.exports = function (app) {
             
 
         });
-      
+        
 
-        connection.release()
+       
     });
 
 
