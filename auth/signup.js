@@ -2,6 +2,7 @@
 var mysql = require('mysql');
 var load = require('../config.js');
 var hash = require('object-hash');
+var empty = require('is-empty');
 const express = require('express');
 const app = express();
 var connection = mysql.createConnection({
@@ -33,71 +34,36 @@ class UserSignUp{
         this.age=age;
     }
 
-    checkusername(){
+    checkusername(callback){
         try {
-            connection.query("select username from users where username='"+this.username+"' ",function(err,rows,fieldss){
-               
+        
+           
+      connection.query("SELECT username , mail FROM users WHERE username='"+this.username+"' or mail='"+this.mail+"'", function(err,rows,fields){
+            
                if(err) {
                    throw err;
                    console.log(err)
+                   callback(err,err.code);
                }
-               else{
-                 if(rows.length > 0){
-                     var ret =new customresponse("username already exist");
-                     return ret;
-                 }
-                 else{
-                    var ret =new customresponse("OK");
-                    return ret;
-                    
-                 }
-
-               }
-               connection.release()
-               // console.log(err);
-               // return "FAILD :"+err;
+             
+               if(!empty(rows)){
+                   callback(null,"username or mail address  already exist");
+                
+         
+            }
+            else{
+             
+                callback(null,"OK");
+            }
+         
             });
-        
-
-            return "OK"
-            
+           
         } catch (error) {
             console.log(error);
             return "FAILD :"+error;
         }
     }
 
-    insertToDb(){
-       
-        try {
-            var resultcode_temp =this.checkusername().ResultCode;
-          //check if exist username
-     if(resultcode_temp=="OK"){
-
-        connection.query("insert into users (username,mail,password,age) values ('"+this.username+"','"+this.mail
-        +"','"+this.password+"','"+this.age+"');",function(err){
-            console.log(err);
-            return "FAILD :"+err;
-        });
-        return "OK"
-
-
-     }
-     else{
-         return "user already exist";
-
-     }
-    
-            
-        } catch (error) {
-            console.log(error);
-            return "FAILD :"+error;
-            
-        }
-        
-        connection.release()
-
-    }
 
     
 }
@@ -116,17 +82,36 @@ module.exports = function(app){
             var password = req.body.password;
             var age = req.body.age;
 
-
-
-            
-            
+   
     
             var temp_user = new UserSignUp(username,mail,password,age);
-            var output= temp_user.insertToDb();
-            var result = new customresponse(output);
-            console.log("new user : "+username);
-           
-            res.send(result);
+            
+            temp_user.checkusername(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                
+                if(result =="OK"){
+                    connection.query("insert into users (username,mail,password,age) values ('"+username+"','"+mail
+                    +"','"+password+"','"+age+"');",function(err){
+                      if(err){
+                          console.log(err);
+
+                      }
+                    });
+                    console.log(" New User Registration : UserName : %s , Mail : %s  " ,username,mail);
+                    res.send(new customresponse(result));
+                }
+                else{
+                    console.log("  New User Registration faild  :"+ result);
+                    res.send(new customresponse(result));
+                }
+                
+                
+
+            });
+
+         
            
 
             
@@ -138,6 +123,14 @@ module.exports = function(app){
         }
        
         
+        
+    });
+
+    app.post('/test', (req, res) => {
+
+        var username = req.username;
+        var temp_user = new UserSignUp(username);
+        temp_user.checkusername();
         
     });
 
