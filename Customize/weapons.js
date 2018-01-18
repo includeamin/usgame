@@ -6,6 +6,7 @@ var empty = require('is-empty');
 var customRespon = require("../CustomRespon");
 const express = require('express');
 const app = express();
+var isOK = true;
 var connection = mysql.createConnection({
     host: load.dbConfig().host,
     user: load.dbConfig().user,
@@ -30,7 +31,9 @@ module.exports = function(app){
         try {
             console.log("[%s] ----------------------------------",new Date().toISOString())
 
-            console.log("Add new Weapons")
+            console.log("Add new Weapons");
+
+
             var Model = req.body.Model;
             var Type = req.body.Type;
             var Ranget = req.body.Range;
@@ -43,11 +46,21 @@ module.exports = function(app){
             connection.query(
             "INSERT INTO `"+load.dbConfig().database+"`.`weapons` (`Model`, `Type`, `Range`, `Damage`, `FireRate`, `ReloadTime`, `Accuracy`, `MagazineSize`) VALUES ('"+Model+"', '"+Type+"', '"+Ranget+"', '"+Damage+"', '"+FireRate+"', '"+ReloadTime+"', '"+Accuracy+"', '"+MagazineSize+"');",function(err){
                 
-            if(err) console.log(err);
+            if(err){ console.log(err);
+            isOK = false;
+            }
             });
-            console.log("New Weapon : added")
-            var respon = new customRespon("OK");
+            if(isOK){
+                console.log("New Weapon : added")
+                var respon = new customRespon("OK");
+                res.send(respon);
+            }
+            else{
+                console.log("New Weapon : added")
+            var respon = new customRespon("Not OK check log");
             res.send(respon);
+            }
+            
 
         } catch (error) {
              console.log("adding weapon faild :"+error);
@@ -63,16 +76,25 @@ module.exports = function(app){
 
 
     app.get('/weapons', (req, res) => {
-        
-        console.log("[%s] ----------------------------------",new Date().toISOString());
-        console.log("Get all Weapons");
+        try {
+            console.log("[%s] ----------------------------------",new Date().toISOString());
+            console.log("Get all Weapons");
+    
+             connection.query("select * from weapons",(err,rows,fields)=>{
+                 if(err){
+                     console.log(err);
+                     res.send(err);
+                 }
+             console.log("all weapons have been sent");
+             var data = new WeaponsRespon(rows);
+             res.send(data);
+          
+            })
+        } catch (error) {
+            Console.log(error);
+            res.send(error);
+        }
 
-         connection.query("select * from weapons",(err,rows,fields)=>{
-         console.log("all weapons have been sent");
-         var data = new WeaponsRespon(rows);
-         res.send(data);
-      
-        })
       });
 
 }
