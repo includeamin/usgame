@@ -23,6 +23,8 @@ module.exports = function(app){
     app.post('/weapons/add', (req, res) => {
  
         try {
+            
+            console.log("[%s] ----------------------------------",new Date().toISOString())
 
             console.log("Add new Weapons")
             var Model = req.body.Model;
@@ -53,7 +55,8 @@ module.exports = function(app){
         }
        
 
-        
+       
+
     });
 
 
