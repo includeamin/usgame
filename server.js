@@ -16,6 +16,7 @@ var connection = mysql.createConnection({
 });
 //test comment
 
+
 app.get('/', (req, res) => {
     var hashobj = hash(["includeamin","9518867"]);
     res.send("US GAME");

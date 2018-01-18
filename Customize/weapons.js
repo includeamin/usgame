@@ -13,6 +13,12 @@ var connection = mysql.createConnection({
     database: load.dbConfig().database
 });
 
+class WeaponsRespon{
+    constructor(Weapons){
+        this.Weapons=Weapons;
+    }
+
+}
 
 
 module.exports = function(app){
@@ -21,9 +27,7 @@ module.exports = function(app){
     app.use(bodyParser.urlencoded({ extended: true }));
 
     app.post('/weapons/add', (req, res) => {
- 
         try {
-            
             console.log("[%s] ----------------------------------",new Date().toISOString())
 
             console.log("Add new Weapons")
@@ -38,10 +42,8 @@ module.exports = function(app){
 
             connection.query(
             "INSERT INTO `"+load.dbConfig().database+"`.`weapons` (`Model`, `Type`, `Range`, `Damage`, `FireRate`, `ReloadTime`, `Accuracy`, `MagazineSize`) VALUES ('"+Model+"', '"+Type+"', '"+Ranget+"', '"+Damage+"', '"+FireRate+"', '"+ReloadTime+"', '"+Accuracy+"', '"+MagazineSize+"');",function(err){
-            
+                
             if(err) console.log(err);
-             
-
             });
             console.log("New Weapon : added")
             var respon = new customRespon("OK");
@@ -59,5 +61,18 @@ module.exports = function(app){
 
     });
 
+
+    app.get('/weapons', (req, res) => {
+        
+        console.log("[%s] ----------------------------------",new Date().toISOString());
+        console.log("Get all Weapons");
+
+         connection.query("select * from weapons",(err,rows,fields)=>{
+         console.log("all weapons have been sent");
+         var data = new WeaponsRespon(rows);
+         res.send(data);
+      
+        })
+      });
 
 }
