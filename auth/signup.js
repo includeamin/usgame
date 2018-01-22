@@ -77,6 +77,7 @@ module.exports = function(app){
     app.post('/users/register', (req, res) => {
         try {
 
+
             var username = req.body.username;
             var mail = req.body.mail;
             var password = req.body.password;
@@ -132,6 +133,10 @@ module.exports = function(app){
         var temp_user = new UserSignUp(username);
         temp_user.checkusername();
         
+    });
+
+    app.get('users/checkusername', (req, res) => {
+        res.send("OKOK");
     });
 
     
