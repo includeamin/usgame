@@ -135,8 +135,96 @@ module.exports = function(app){
         
     });
 
-    app.get('/users/checkusername', (req, res) => {
-        res.send("OKOK");
+
+    // function checkusername(username){
+    //     try {
+    //         console.log("check username while signup :[%s]",username);
+    //         connection.query("select uesrname from users where username='"+username+"'",(err,rows,fields)=>{
+    //             if(!empty(rows)){
+    //            // username exist
+    //             return "OK";
+       
+    //             }
+    //             else{
+    //                return "UserName exist";
+    //             }
+    //            })
+    //     } catch (error) {
+    //         console.log("usrname check error : "+error)
+    //         return error;
+    //     }
+       
+    // }
+    app.get('/users/username', (req, res) => {
+        var username = req.query.username;
+
+        try {
+            console.log("check username while signup :[%s]",username);
+            connection.query("SELECT username FROM users where username='"+username+"'",(err,rows,fields)=>{
+                if(err){
+                    console.log(err);
+                }
+                console.log(rows); 
+                if(!empty(rows)){
+               // username exist
+               
+               
+                res.send(new customresponse("Exist"));
+       
+                }
+                else{
+                    res.send(new customresponse( "OK"));
+                   // console.log(rows);
+                   
+                }
+               });
+        } catch (error) {
+            console.log("usrname check error : "+error)
+            return error;
+        }
+
+
+
+
+
+
+        
+    });
+    app.get('/users/mail', (req, res) => {
+        var mail = req.query.mail;
+
+        try {
+            console.log("check mail while signup :[%s]",mail);
+            connection.query("SELECT username FROM users where mail='"+mail+"'",(err,rows,fields)=>{
+                if(err){
+                    console.log(err);
+                }
+                console.log(rows); 
+                if(!empty(rows)){
+               // username exist
+               
+               
+                res.send(new customresponse("Exist"));
+                
+       
+                }
+                else{
+                    res.send(new customresponse( "OK"));
+                    
+                   
+                }
+               });
+        } catch (error) {
+            console.log("usrname check error : "+error)
+            return error;
+        }
+
+
+
+
+
+
+        
     });
 
     
