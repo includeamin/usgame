@@ -135,9 +135,7 @@ module.exports = function(app){
         
     });
 
-    app.get('users/checkusername', (req, res) => {
-        res.send("OKOK");
-    });
+   
 
     
 
