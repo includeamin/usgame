@@ -43,8 +43,6 @@ function isEmptyObject(obj) {
     }
     return true;
   }
-  app.get('users/checkusername', (req, res) => {
-    res.send("OKOK");
-});
+
 app.listen(process.env.PORT || 9000, () => console.log("Listen on port 9000 --["+process.env.PORT+"]"));
 
