@@ -34,18 +34,19 @@ class UserSignUp{
         this.age=age;
     }
 
-    checkusername(callback){
+    checkusername(username ,mail,callback){
         try {
         
-           
-      connection.query("SELECT username , mail FROM users WHERE username='"+this.username+"' or mail='"+this.mail+"'", function(err,rows,fields){
+           console.log(this.username);
+           console.log(this.mail)
+      connection.query("SELECT username , mail FROM users WHERE username='"+username+"' or mail='"+mail+"'", function(err,rows,fields){
             
                if(err) {
                    throw err;
                    console.log(err)
                    callback(err,err.code);
                }
-             
+              console.log(rows)
                if(!empty(rows)){
                    callback(null,"username or mail address  already exist");
                 
@@ -82,15 +83,13 @@ module.exports = function(app){
             var mail = req.body.mail;
             var password = req.body.password;
             var age = req.body.age;
-
-   
-    
-            var temp_user = new UserSignUp(username,mail,password,age);
             
-            temp_user.checkusername(function(err,result){
+            var temp_user = new UserSignUp(username,mail,password,age);
+            temp_user.checkusername(username,mail,function(err,result){
                 if(err){
                     console.log(err);
                 }
+                console.log(result);
                 
                 if(result =="OK"){
                     connection.query("insert into users (username,mail,password,age) values ('"+username+"','"+mail
@@ -107,25 +106,17 @@ module.exports = function(app){
                     console.log("New User Registration faild  :"+ result);
                     res.send(new customresponse(result));
                 }
-                
-                
-
+                   
             });
 
-         
-           
-
-            
+  
         } catch (error) {
            console.log(error);
            var result = new customresponse(output);
            res.send(result);
             
         }
-       
-        
-        
-    });
+        });
 
     app.post('/test', (req, res) => {
 
@@ -135,29 +126,9 @@ module.exports = function(app){
         
     });
 
-
-    // function checkusername(username){
-    //     try {
-    //         console.log("check username while signup :[%s]",username);
-    //         connection.query("select uesrname from users where username='"+username+"'",(err,rows,fields)=>{
-    //             if(!empty(rows)){
-    //            // username exist
-    //             return "OK";
-       
-    //             }
-    //             else{
-    //                return "UserName exist";
-    //             }
-    //            })
-    //     } catch (error) {
-    //         console.log("usrname check error : "+error)
-    //         return error;
-    //     }
-       
-    // }
     app.get('/users/username', (req, res) => {
         var username = req.query.username;
-
+        
         try {
             console.log("check username while signup :[%s]",username);
             connection.query("SELECT username FROM users where username='"+username+"'",(err,rows,fields)=>{
@@ -182,13 +153,7 @@ module.exports = function(app){
             console.log("usrname check error : "+error)
             return error;
         }
-
-
-
-
-
-
-        
+   
     });
     app.get('/users/mail', (req, res) => {
         var mail = req.query.mail;
