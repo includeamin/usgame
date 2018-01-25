@@ -7,6 +7,7 @@ var login = require("./auth/login")(app);
 var register = require("./auth/signup")(app);
 var weaponsadd = require("./Customize/weapons")(app);
 var gameinfo = require("./GameInfo/gameinfo")(app);
+var match = require("./Customize/match")(app);
 var mysql = require('mysql');
 var load = require('./config.js');
 var connection = mysql.createConnection({
