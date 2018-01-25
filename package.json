@@ -22,5 +22,10 @@
     "user": "root",
     "password": "9518867",
     "database": "us"
+  },
+  "logServer":{
+    "host":"mqtts://178.63.169.234",
+    "port":"1883"
+
   }
 }

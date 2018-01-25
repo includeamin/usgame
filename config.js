@@ -12,6 +12,13 @@ module.exports = {
         let rawdata = fs.readFileSync('package.json');
         let database = JSON.parse(rawdata);
         return database.Mail;
+    },
+    logServer:function(){
+      
+        let rawdata = fs.readFileSync('package.json');
+        let database = JSON.parse(rawdata);
+        return database.logServer;
+
     }
 };
 

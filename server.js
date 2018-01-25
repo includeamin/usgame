@@ -10,6 +10,7 @@ var gameinfo = require("./GameInfo/gameinfo")(app);
 var match = require("./Customize/match")(app);
 var mysql = require('mysql');
 var load = require('./config.js');
+var logger = require("./logger/logger");
 var connection = mysql.createConnection({
     host: load.dbConfig().host,
     user: load.dbConfig().user,
@@ -20,7 +21,8 @@ var connection = mysql.createConnection({
 
 
 app.get('/', (req, res) => {
-    var hashobj = hash(["includeamin","9518867"]);
+  //  var hashobj = hash(["includeamin","9518867"]);
+   logger.log("Get Request  to main path");
     res.send("US GAME");
     // connection.query("select * from users where username='includeamin'",function(err,rows,fields){
     //     if(err) throw err;
