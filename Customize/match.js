@@ -94,8 +94,10 @@ module.exports = function (app) {
         customjson
         +"' WHERE `username`='"+username+"';",(err)=>{
             if(err){
+
                 console.log(err);
                 res.send(new customresponse(err));
+                
             }
 
         });
