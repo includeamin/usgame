@@ -29,11 +29,11 @@ module.exports = function(app){
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/config', (req, res) => {
-    connection.query("select * from gameinfo",(err,rows,fields)=>{
+    connection.query("select * from gameinfo where id=1",(err,rows,fields)=>{
         if(err){
             console.log(err);
         }
-        res.send(rows);
+        res.send(rows[0]);
     });
 });
 
