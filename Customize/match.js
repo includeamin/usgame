@@ -4,6 +4,9 @@ var mysql = require('mysql');
 var load = require('../config.js');
 var hash = require('object-hash');
 const express = require('express');
+var logger = require("../logger/logger");
+
+var format = require('string-format')
 const app = express();
 var connection = mysql.createConnection({
     host: load.dbConfig().host,
@@ -111,6 +114,34 @@ module.exports = function (app) {
 
      }
     
+ });
+ app.get('/game/getcustomize', (req, res) => {
+     try {
+         var username = req.query.username;
+         var roomid = req.query.roomid;
+         connection.query("select username , customjson from users where username='"+username+"'",(err,rows,fields)=>{
+
+         if(err){
+            logger.log(format("Query for customjson in match faild : {}",err));
+        //    console.log(format("Query for customjson in match faild : {}",err));
+         }
+         else{
+
+            res.send(rows);
+            logger.log(format("room id: [{}] |Query for customjson in match success : username: {}",roomid,username));
+          //  console.log(format("room id: [{}] |Query for customjson in match success : username: {}",roomid,username));
+
+        
+         }
+
+
+         });
+
+     } catch (error) {
+        logger.log(format("Query for customjson in match faild : {}",error));
+    //    console.log(format("Query for customjson in match faild : {}",error));
+     }
+     
  });
 
  //hanlding end match by inserting game result to database

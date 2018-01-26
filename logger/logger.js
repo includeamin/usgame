@@ -26,7 +26,7 @@ module.exports ={
 
   //   client.subscribe('auth')
   
-     client.publish("auth",string);
+     client.publish("authlog",string);
     
  }
 
