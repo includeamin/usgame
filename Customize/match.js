@@ -35,8 +35,9 @@ module.exports = function (app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
- app.post('/game/match/startmatch', (req, res) => {
+ app.post('/game/match/endmatch', (req, res) => {
   try {
+      //save match result an winner data
         var playerone = req.body.playerone;
         var playertwo = req.body.playertwo;
         var roomid = req.body.roomid;
