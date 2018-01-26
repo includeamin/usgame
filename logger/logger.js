@@ -9,16 +9,25 @@ require('ssl-root-cas').inject();
 
 module.exports ={
 
-  
-
   log:function(string){
     
      var client  = mqtt.connect(load.logServer().host,{ rejectUnauthorized: false });
  //   console.log(load.logServer().host+load.logServer().port)
-      client.subscribe('uslog')
+
+     // client.subscribe('uslog')
    
       client.publish("uslog",string);
      
-  }
+  },
+  Authlogger:function(string){
+    
+    var client  = mqtt.connect(load.logServer().host,{ rejectUnauthorized: false });
+//   console.log(load.logServer().host+load.logServer().port)
+
+  //   client.subscribe('auth')
+  
+     client.publish("auth",string);
+    
+ }
 
 }

@@ -5,6 +5,8 @@ var hash = require('object-hash');
 var empty = require('is-empty');
 const express = require('express');
 const app = express();
+var logger = require("../logger/logger");
+var format = require('string-format')
 var connection = mysql.createConnection({
     host: load.dbConfig().host,
     user: load.dbConfig().user,
@@ -90,7 +92,7 @@ module.exports = function(app){
                     console.log(err);
                 }
                 console.log(result);
-                
+                //TODO : add '"{"shirt":"Generic","pants":"Generic","eyes":"Generic","nose":"Generic","lips":"Generic","hair":"Generic","boot":"Generic","rifle":"Generic","pistol":"Generic"}"' to query
                 if(result =="OK"){
                     connection.query("insert into users (username,mail,password,age) values ('"+username+"','"+mail
                     +"','"+password+"','"+age+"');",function(err){
@@ -131,6 +133,7 @@ module.exports = function(app){
         
         try {
             console.log("check username while signup :[%s]",username);
+
             connection.query("SELECT username FROM users where username='"+username+"'",(err,rows,fields)=>{
                 if(err){
                     console.log(err);
