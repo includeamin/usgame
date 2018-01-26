@@ -94,8 +94,11 @@ module.exports = function(app){
                 console.log(result);
                 //TODO : add '"{"shirt":"Generic","pants":"Generic","eyes":"Generic","nose":"Generic","lips":"Generic","hair":"Generic","boot":"Generic","rifle":"Generic","pistol":"Generic"}"' to query
                 if(result =="OK"){
-                    connection.query("insert into users (username,mail,password,age) values ('"+username+"','"+mail
-                    +"','"+password+"','"+age+"');",function(err){
+                    var temp_for_customjson ='"{"shirt":"Generic","pants":"Generic","eyes":"Generic","nose":"Generic","lips":"Generic","hair":"Generic","boot":"Generic","rifle":"Generic","pistol":"Generic"}"';
+                    connection.query("insert into users (username,mail,password,age,customjson) values ('"+username+"','"+mail
+                    +"','"+password+"','"+age+"','"+
+                    temp_for_customjson
+                    +"');",function(err){
                       if(err){
                           console.log(err);
 
