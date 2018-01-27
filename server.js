@@ -3,6 +3,18 @@
 var express = require('express');
 var hash = require('object-hash');
 var app = express()
+//this is middleware for prevent unAuth users 
+// app.use(function (req, res, next) {
+//   if(true){
+//     next()
+//   }
+//   else{
+//     console.log('Time:', Date.now())
+//     res.send("pleaselogin")
+
+//   }
+ 
+// })
 var login = require("./auth/login")(app);
 var register = require("./auth/signup")(app);
 var weaponsadd = require("./Customize/weapons")(app);
@@ -20,9 +32,11 @@ var connection = mysql.createConnection({
 //test comment
 
 
+
+
 app.get('/', (req, res) => {
   //  var hashobj = hash(["includeamin","9518867"]);
-   logger.log("Get Request  to main path");
+    logger.log("Get Request  to main path");
     res.send("US GAME");
     // connection.query("select * from users where username='includeamin'",function(err,rows,fields){
     //     if(err) throw err;
