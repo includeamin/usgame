@@ -42,6 +42,9 @@ module.exports = function (app) {
         var playertwo = req.body.playertwo;
         var roomid = req.body.roomid;
         var playeroneCustomjson,playertwoCustomjson;
+        var winnerId = req.body.winnerId;
+        var winnerPoint = req.body.winnerId;
+        
     // TODO : 
     //check from client side by request to server for checking username is exist or not
     //check if user not exist server-side or client-side
