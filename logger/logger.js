@@ -29,5 +29,15 @@ module.exports ={
      client.publish("authlog",string);
     
  }
+ ,
+ Unilog:function(message,topic) {
+    var client  = mqtt.connect(load.logServer().host,{ rejectUnauthorized: false });
+    //   console.log(load.logServer().host+load.logServer().port)
+    
+      //   client.subscribe('auth')
+      
+         client.publish(topic,string);
+     
+ }
 
 }
