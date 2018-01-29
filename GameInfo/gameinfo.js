@@ -3,6 +3,7 @@ var load = require('../config.js');
 var hash = require('object-hash');
 var empty = require('is-empty');
 const express = require('express');
+var logger = require("../logger/logger");
 const app = express();
 var connection = mysql.createConnection({
     host: load.dbConfig().host,
@@ -34,6 +35,7 @@ app.get('/config', (req, res) => {
             console.log(err);
         }
         res.send(rows[0]);
+        logger.Unilog("Get GameInfo","GameInfo");
     });
 });
 
