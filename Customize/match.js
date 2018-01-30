@@ -109,9 +109,12 @@ module.exports = function (app) {
                 res.send(new customresponse(err));
                 
             }
+            else{
+                res.send(new customresponse("OK"));
+            }
 
         });
-        res.send(new customresponse("OK"));
+       
 
       
 
