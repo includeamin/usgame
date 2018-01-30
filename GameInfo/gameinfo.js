@@ -34,8 +34,11 @@ app.get('/config', (req, res) => {
         if(err){
             console.log(err);
         }
-        res.send(rows[0]);
-        logger.Unilog("Get GameInfo","GameInfo");
+        else{
+            res.send(rows[0]);
+            logger.Unilog("Get GameInfo","GameInfo");
+        }
+        
     });
 });
 

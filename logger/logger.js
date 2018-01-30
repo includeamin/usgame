@@ -36,7 +36,7 @@ module.exports ={
     
       //   client.subscribe('auth')
       
-         client.publish(topic,string);
+         client.publish(topic,message);
      
  }
 
