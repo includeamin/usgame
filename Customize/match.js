@@ -76,12 +76,14 @@ module.exports = function (app) {
 
  app.post('/game/customize', (req, res) => {
      try {
-
-
-        var username = req.body.username;
+          var username = req.body.username;
         var customjson = req.body.customjson;
-        
 
+     if(username == undefined || customjson==undefined){
+         res.send(new customresponse("Username or customjson undefined"));
+     }
+     else{
+         
         connection.query("select id, customjson from users where username='"+ username+"'",
         function(err,rows,fields){
         if(err){
@@ -115,6 +117,11 @@ module.exports = function (app) {
 
         });
        
+
+     }
+       
+        
+
 
       //edit
 
