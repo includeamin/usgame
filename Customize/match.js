@@ -77,7 +77,7 @@ module.exports = function (app) {
  app.post('/game/customize', (req, res) => {
      try {
           var username = req.body.username;
-        var customjson = req.body.customjson;
+         var customjson = req.body.customjson;
 
      if(username == undefined || customjson==undefined){
          res.send(new customresponse("Username or customjson undefined"));
