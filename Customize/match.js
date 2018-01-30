@@ -86,14 +86,17 @@ module.exports = function (app) {
         function(err,rows,fields){
         if(err){
             console.log(err);
+            logger.log(err);
         }
-         
-         connection.query("INSERT INTO `us`.`customhistory` (`userid`, `customjson`) VALUES ('"+rows[0].id+"', '"+rows[0].customjson+"');",(err)=>{
-         if(err){
-             console.log(err);
+         else{
+            connection.query("INSERT INTO `us`.`customhistory` (`userid`, `customjson`) VALUES ('"+rows[0].id+"', '"+rows[0].customjson+"');",(err)=>{
+                if(err){
+                    console.log(err);
+                }
+       
+                })
          }
-
-         })
+       
         });
 
 
