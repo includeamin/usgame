@@ -3,6 +3,7 @@
 var mysql = require('mysql');
 var load = require('../config.js');
 var hash = require('object-hash');
+var empty = require('is-empty');
 const express = require('express');
 var logger = require("../logger/logger");
 
@@ -91,31 +92,44 @@ module.exports = function (app) {
             logger.log(err);
         }
          else{
-            connection.query("INSERT INTO `us`.`customhistory` (`userid`, `customjson`) VALUES ('"+rows[0].id+"', '"+rows[0].customjson+"');",(err)=>{
-                if(err){
-                    console.log(err);
-                }
-       
-                })
+             if(!empty(rows)){
+                connection.query("INSERT INTO `us`.`customhistory` (`userid`, `customjson`) VALUES ('"+rows[0].id+"', '"+rows[0].customjson+"');",(err)=>{
+                    if(err){
+                        console.log(err);
+                    }
+           
+                    })
+                    // console.log(username);
+                    // console.log(customjson);
+                    connection.query("UPDATE `users` SET `customjson`='"+
+                    customjson
+                    +"' WHERE `username`='"+username+"';",(err)=>{
+                        if(err){
+            
+                            console.log(err);
+                            res.send(new customresponse(err));
+                            
+                        }
+                        else{
+                            res.send(new customresponse("OK"));
+                        }
+            
+                    });
+             }
+             else{
+
+                res.send(new customresponse("User not exist"));
+              
+
+             }
+
+           
          }
        
         });
 
 
-        connection.query("UPDATE `users` SET `customjson`='"+
-        customjson
-        +"' WHERE `username`='"+username+"';",(err)=>{
-            if(err){
-
-                console.log(err);
-                res.send(new customresponse(err));
-                
-            }
-            else{
-                res.send(new customresponse("OK"));
-            }
-
-        });
+    
        
 
      }
