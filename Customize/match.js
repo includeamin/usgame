@@ -121,10 +121,10 @@ module.exports = function (app) {
                 res.send(new customresponse("User not exist"));
               
 
-             }
+                }
 
            
-         }
+           }
        
         });
 
@@ -157,12 +157,9 @@ module.exports = function (app) {
         //    console.log(format("Query for customjson in match faild : {}",err));
          }
          else{
-
             res.send(rows);
             logger.log(format("room id: [{}] |Query for customjson in match success : username: {}",roomid,username));
           //  console.log(format("room id: [{}] |Query for customjson in match success : username: {}",roomid,username));
-
-        
          }
 
 
