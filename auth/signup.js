@@ -87,6 +87,7 @@ module.exports = function(app){
             var age = req.body.age;
             
             var temp_user = new UserSignUp(username,mail,password,age);
+           var hashtemp= hash([username,password]);
             temp_user.checkusername(username,mail,function(err,result){
                 if(err){
                     console.log(err);
@@ -96,7 +97,7 @@ module.exports = function(app){
                 if(result =="OK"){
                     var temp_for_customjson ='"{"shirt":"Generic","pants":"Generic","eyes":"Generic","nose":"Generic","lips":"Generic","hair":"Generic","boot":"Generic","rifle":"Generic","pistol":"Generic"}"';
                     connection.query("insert into users (username,mail,password,age,customjson) values ('"+username+"','"+mail
-                    +"','"+password+"','"+age+"','"+
+                    +"','"+hashtemp+"','"+age+"','"+
                     temp_for_customjson
                     +"');",function(err){
                       if(err){
