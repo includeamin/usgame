@@ -19,7 +19,7 @@
   "Database": {
     "host": "localhost",
     "user": "root",
-    "password": "Aminjamal72",
+    "password": "aminjamal72",
     "database": "us"
   },
   "logServer": {
