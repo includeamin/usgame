@@ -31,44 +31,29 @@ class customresponse{
     }
 
 }
+
 module.exports = function (app) {
     var bodyParser = require('body-parser');
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
- app.post('/game/match/endmatch', (req, res) => {
+ app.post('/game/match/adddetails', (req, res) => {
   try {
       //save match result an winner data
-        var playerone = req.body.playerone;
-        var playertwo = req.body.playertwo;
+        var playerOne = req.body.playerone;
+        var playerTwo = req.body.playertwo;
         var roomid = req.body.roomid;
-        var playeroneCustomjson,playertwoCustomjson;
-        var winnerId = req.body.winnerId;
-        var winnerPoint = req.body.winnerId;
-        
-    // TODO : 
-    //check from client side by request to server for checking username is exist or not
-    //check if user not exist server-side or client-side
-        connection.query("INSERT INTO match (`playerOneId`, `playerTwoId`,`roomId`) VALUES ('"+playerone+"', '"+playertwo+"','"+roomid+"');",(err)=>{
-            if(err){
-                console.log(err);
-            }
-        });
-        //custom json should have a defult value
-        //insert customjson of ech user
-        connection.query("select customjson from users where username='"+playerone+"'",(err,rows,fields)=>{
-            if(err)
-               {
-                   console.log(err);
-               }
+        var detailsJson = req.body.detailsjson;
+        console.log("adding game detail on ["+roomid+"]")
 
-        
-        });
+        connection.query("INSERT INTO `"+load.dbConfig().database+"`.`match` (`playerOne`, `playerTwo`, `roomId`, `detailsjson`) VALUES ('"+
+        playerOne+"', '"+playerTwo+"', '"+roomid+"', '"+
+        detailsJson+"');");
 
 
     
     } catch (error) {
-     
+      console.log("error on adding matchdetails :"+error);
     }
       
  
