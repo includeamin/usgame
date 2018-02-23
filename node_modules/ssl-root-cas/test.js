@@ -9,7 +9,7 @@ function testDefault() {
   var request = require('request');
 
   require('https').globalAgent.options.ca = rootCas;
-  request.get('https://daplie.com/404.html', function (err, resp, body) {
+  request.get('https://coolaj86.com/404.html', function (err, resp, body) {
     if (err) {
       throw err;
     }
@@ -24,7 +24,7 @@ function testInject() {
   var request = require('request');
 
   require('https').globalAgent.options.ca = rootCas;
-  request.get('https://daplie.com/404.html', function (err, resp, body) {
+  request.get('https://coolaj86.com/404.html', function (err, resp, body) {
     if (err) {
       throw err;
     }
@@ -39,7 +39,7 @@ function testCreate() {
   var request = require('request');
 
   require('https').globalAgent.options.ca = rootCas;
-  request.get('https://daplie.com/404.html', function (err, resp, body) {
+  request.get('https://coolaj86.com/404.html', function (err, resp, body) {
     if (err) {
       throw err;
     }
