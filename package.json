@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "usweapons",
   "version": "1.0.0",
   "description": "Rest Server for Us game ",
@@ -20,7 +20,7 @@
   "Database": {
     "host": "localhost",
     "user": "root",
-    "password": "ََAminjamal72",
+    "password": "aminjamal72",
     "database": "us"
   },
   "logServer":{
