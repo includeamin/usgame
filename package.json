@@ -1,17 +1,14 @@
-﻿{
+{
   "name": "usweapons",
   "version": "1.0.0",
   "description": "Rest Server for Us game ",
   "main": "server.js",
-  "dependencies":{
+  "dependencies": {
     "express": "^4.16.2",
-    "object-hash":"^1.2.0",
-    "mysql":"^2.15.0"
+    "object-hash": "^1.2.0",
+    "mysql": "^2.15.0"
   },
-  "devDependencies": {
-    
-    
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -21,12 +18,11 @@
   "Database": {
     "host": "localhost",
     "user": "root",
-    "password": "aminjamal72",
+    "password": "ََAminjamal72",
     "database": "us"
   },
-  "logServer":{
-    "host":"mqtts://178.63.169.234",
-    "port":"1883"
-
+  "logServer": {
+    "host": "mqtts://178.63.169.234",
+    "port": "1883"
   }
 }
