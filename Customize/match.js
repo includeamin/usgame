@@ -39,6 +39,7 @@ module.exports = function (app) {
 
  app.post('/game/match/adddetails', (req, res) => {
   try {
+    
       //save match result an winner data
         var playerOne = req.body.playerone;
         var playerTwo = req.body.playertwo;
